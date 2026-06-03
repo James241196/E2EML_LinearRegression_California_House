@@ -1,3 +1,135 @@
-<h1>
-Welcome to the E2E Machine Learning Template Repository!
-</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California House Price Prediction</title>
+    
+    <!-- Import Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- CSS Styling -->
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #333333;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+        }
+
+        button {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #27ae60;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #e8f8f5;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* Ẩn hộp kết quả nếu chưa có dữ liệu dự đoán */
+        .result-box:empty {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>California House Price</h1>
+
+        <!-- Form nhập liệu -->
+        <form action="{{ url_for('predict')}}" method="post">
+            <input type="text" name="MedInc" placeholder="MedInc(Thu nhập TB)" required="required" />
+            <input type="text" name="HouseAge" placeholder="HouseAge(Tuổi nhà TB)" required="required" />
+            <input type="text" name="AveRooms" placeholder="AveRooms(Số phòng TB)" required="required" />
+            <input type="text" name="AveBedrms" placeholder="AveBedrms(Số phòng ngủ TB)" required="required" />
+            <input type="text" name="Population" placeholder="Population(Dân số)" required="required" />
+            <input type="text" name="AveOccup" placeholder="AveOccup(Số người ở TB)" required="required" />
+            <input type="text" name="Latitude" placeholder=" Latitude(Vĩ độ)" required="required" />
+            <input type="text" name="Longitude" placeholder="Longitude(Kinh độ)" required="required" />
+
+            <button type="submit">Predict Price(Dự đoán giá nhà)</button>
+        </form>
+
+        <!-- Nơi hiển thị kết quả -->
+        <div class="result-box">
+            {{prediction_text}}
+        </div>
+    </div>
+
+</body>
+</html>
